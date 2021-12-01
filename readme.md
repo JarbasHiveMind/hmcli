@@ -1,28 +1,36 @@
 
-```
-$ python hmcli/scan.py
-Scanning....
-                 HiveMind Devices                  
-┏━━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━┓
-┃     Name      ┃ Protocol ┃     Host      ┃ Port ┃
-┡━━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━╇━━━━━━┩
-│ HiveMind Node │   wss    │ 192.168.1.112 │ 5678 │
-└───────────────┴──────────┴───────────────┴──────┘
-```
+## Local Network 
 
 ```
+$ python hmcli/announce.py --name Mark1 --ssl
+Announcing node via Zeroconf
+Announcing node via UPNP: http://192.168.1.112:8088/device.xml
+
 $ python hmcli/announce.py --help
-usage: announce.py [-h] [--port PORT] [--ssl] [--zeroconf] [--name NAME] [--service SERVICE]
+usage: announce.py [-h] [--port PORT] [--ssl] [--name NAME] [--service SERVICE]
 
 optional arguments:
   -h, --help         show this help message and exit
   --port PORT        HiveMind port number (default: 5678)
   --ssl              use wss://
-  --zeroconf         use zeroconf
   --name NAME        friendly device name (default: HiveMind-Node)
   --service SERVICE  HiveMind service type (default: HiveMind-websocket)
 
 ```
+
+```
+$ python hmcli/scan.py
+Scanning....
+                 HiveMind Devices                  
+┏━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━┓
+┃ Name  ┃ Protocol ┃     Host      ┃ Port ┃
+┡━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━╇━━━━━━┩
+│ Mark1 │   wss    │ 192.168.1.112 │ 5678 │
+└───────┴──────────┴───────────────┴──────┘
+```
+
+
+## Credentials Management
 
 ```     
 $ python hmcli/add_keys.py --name Mark1
@@ -53,3 +61,4 @@ Friendly Name: Mark1
 Access Key: 41c544ecd8f939c2b7125858ce903a08
 Encryption Key: 57f89a205d4d7685
 ```
+

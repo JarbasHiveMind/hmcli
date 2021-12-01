@@ -15,7 +15,7 @@ def scan_and_print():
     console = Console()
     console.print("Scanning....")
     for device in LocalDiscovery().scan(timeout=10):
-        proto = "wss" if device.ssl else "ws "
+        proto = "wss" if device.ssl else "ws"
         table.add_row(device.friendly_name, proto, device.host, str(device.port))
         console.print(table)
 

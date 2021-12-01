@@ -13,7 +13,14 @@ def main():
             if x["client_id"] == int(args.node_id):
                 item_id = db.get_item_id(x)
                 db.update_item(item_id, dict(client_id=-1, api_key="revoked"))
-                print(f"revoked: {x}")
+                print(f"Revoked credentials!\n")
+                print("Node ID:", x["client_id"])
+                print("Friendly Name:", x["name"])
+                print("Access Key:", x["api_key"])
+                print("Encryption Key:", x["crypto_key"])
+                break
+        else:
+            print("Invalid Node ID!")
 
 
 if __name__ == '__main__':

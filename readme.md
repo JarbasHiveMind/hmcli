@@ -24,40 +24,32 @@ optional arguments:
 
 ```
 
-```
-$ python hmcli/add_keys.py --help
-usage: add_keys.py [-h] [--name NAME] [--access_key ACCESS_KEY] [--crypto_key CRYPTO_KEY]
+```     
+$ python hmcli/add_keys.py --name Mark1
+Credentials added to database!
 
-Add node to HiveMind's database
-
-optional arguments:
-  -h, --help            show this help message and exit
-  --name NAME           human readable name
-  --access_key ACCESS_KEY
-                        access key
-  --crypto_key CRYPTO_KEY
-                        payload encryption key
+Node ID: 6
+Friendly Name: Mark1
+Access Key: 645df537c65caacb9a009a5ba1535d30
+Encryption Key: ab8363672d6e7e89
 ```
 
 ```
 $ python hmcli/list_keys.py
                       HiveMind Credentials:                       
-┏━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓
-┃ ID ┃       Name        ┃     Access Key     ┃    Crypto Key    ┃
-┡━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩
-│ 3  │ JarbasCliTerminal │ RESISTENCEisFUTILE │ resistanceISfuti │
-└────┴───────────────────┴────────────────────┴──────────────────┘
-
-
+┏━━━━┳━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓
+┃ ID ┃ Name  ┃            Access Key            ┃    Crypto Key    ┃
+┡━━━━╇━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩
+│ 8  │ Mark1 │ 41c544ecd8f939c2b7125858ce903a08 │ 57f89a205d4d7685 │
+└────┴───────┴──────────────────────────────────┴──────────────────┘
 ```
 
 ```
-$ python hmcli/delete_key.py --help
-usage: delete_key.py [-h] [--node_id NODE_ID]
+$ python hmcli/delete_key.py --node_id 8
+Revoked credentials!
 
-Delete node from HiveMind's database
-
-optional arguments:
-  -h, --help         show this help message and exit
-  --node_id NODE_ID  id of node to delete
+Node ID: 8
+Friendly Name: Mark1
+Access Key: 41c544ecd8f939c2b7125858ce903a08
+Encryption Key: 57f89a205d4d7685
 ```

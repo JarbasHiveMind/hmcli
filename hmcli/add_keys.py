@@ -1,17 +1,18 @@
 import argparse
 import os
 
+import click
+
 from jarbas_hive_mind.database import ClientDatabase
 
+from commands import hmcli_cmds
 
-def main():
-    parser = argparse.ArgumentParser(description="Add node to HiveMind's database")
-    parser.add_argument("--name", help="human readable name")
-    parser.add_argument("--access_key", help="access key")
-    parser.add_argument("--crypto_key", help="payload encryption key")
-    args = parser.parse_args()
-
-    key = args.crypto_key
+@click.command()
+@click.argument("name", required=False)#, help="human readable name")
+@click.argument("access_key", required=False)#, help="access key")
+@click.argument("crypto_key", required=False)#, help="payload encryption key")
+def add_keys(name, access_key, crypto_key):
+    key = crypto_key
     if key:
         print("WARNING: for security the encryption key should be randomly generated\n"
               "Defining your own key is discouraged")
@@ -21,9 +22,9 @@ def main():
     else:
         key = os.urandom(8).hex()
 
-    access_key = args.access_key or os.urandom(16).hex()
+    access_key = access_key or os.urandom(16).hex()
     with ClientDatabase() as db:
-        name = args.name or f"HiveMind-Node-{db.total_clients()}"
+        name = name or f"HiveMind-Node-{db.total_clients()}"
         db.add_client(name, access_key, crypto_key=key)
 
         # verify
@@ -36,6 +37,4 @@ def main():
         print("Access Key:", access_key)
         print("Encryption Key:", key)
 
-
-if __name__ == '__main__':
-    main()
+hmcli_cmds.add_command(add_keys)

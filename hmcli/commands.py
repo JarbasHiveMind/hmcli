@@ -9,3 +9,4 @@ def hmcli_cmds():
 @click.option("--version", required=False, is_flag=True, help="Print current version and exit")
 def hmcli(version:bool=False):
     print(version)
+

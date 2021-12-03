@@ -8,9 +8,9 @@ from jarbas_hive_mind.database import ClientDatabase
 from hmcli.src.commands import hmcli_cmds
 
 @click.command()
-@click.argument("name", required=False)#, help="human readable name")
-@click.argument("access_key", required=False)#, help="access key")
-@click.argument("crypto_key", required=False)#, help="payload encryption key")
+@click.argument("name", required=False)
+@click.argument("access_key", required=False)
+@click.argument("crypto_key", required=False)
 def add_keys(name, access_key, crypto_key):
     key = crypto_key
     if key:

@@ -1,6 +1,9 @@
 import click
 from click_default_group import DefaultGroup
 
+from importlib import import_module
+from pkgutil import iter_modules
+
 @click.group(cls=DefaultGroup, default='\0', no_args_is_help=True, invoke_without_command=True)
 def hmcli_cmds():
     pass

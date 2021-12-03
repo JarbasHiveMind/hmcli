@@ -5,7 +5,7 @@ import click
 
 from jarbas_hive_mind.database import ClientDatabase
 
-from commands import hmcli_cmds
+from hmcli.src.commands import hmcli_cmds
 
 @click.command()
 @click.argument("name", required=False)#, help="human readable name")

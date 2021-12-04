@@ -1,11 +1,11 @@
 import click
 
-from jarbas_hive_mind.database import ClientDatabase
 from hmcli.src.commands import hmcli_cmds
 
 @click.command()
 @click.argument("node_id", required=True)
 def delete_key(node_id):
+    from jarbas_hive_mind.database import ClientDatabase
     with ClientDatabase() as db:
         for x in db:
             if x["client_id"] == int(node_id):

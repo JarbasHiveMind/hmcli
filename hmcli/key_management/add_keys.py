@@ -3,8 +3,6 @@ import os
 
 import click
 
-from jarbas_hive_mind.database import ClientDatabase
-
 from hmcli.src.commands import hmcli_cmds
 
 @click.command()
@@ -12,6 +10,9 @@ from hmcli.src.commands import hmcli_cmds
 @click.argument("access_key", required=False)
 @click.argument("crypto_key", required=False)
 def add_keys(name, access_key, crypto_key):
+
+    from jarbas_hive_mind.database import ClientDatabase
+
     key = crypto_key
     if key:
         print("WARNING: for security the encryption key should be randomly generated\n"

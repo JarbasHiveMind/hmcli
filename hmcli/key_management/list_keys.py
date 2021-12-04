@@ -2,11 +2,11 @@ import click
 from rich.console import Console
 from rich.table import Table
 
-from jarbas_hive_mind.database import ClientDatabase
 from hmcli.src.commands import hmcli_cmds
 
 @click.command()
 def list_keys():
+    from jarbas_hive_mind.database import ClientDatabase
     console = Console()
     table = Table(title="HiveMind Credentials:")
     table.add_column("ID", justify="center")

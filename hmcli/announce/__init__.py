@@ -1,7 +1,6 @@
 import time
 import click
 
-from HiveMind_presence import UPNPAnnounce
 from hmcli.src.commands import hmcli_cmds
 
 @click.command()
@@ -10,6 +9,7 @@ from hmcli.src.commands import hmcli_cmds
 @click.option("--name", default="HiveMind-Node", help="friendly device name (default: HiveMind-Node)")
 @click.option("--service", default="HiveMind-websocket", help="HiveMind service type (default: HiveMind-websocket)")
 def announce(port: int, ssl: bool, name: str, service: str):
+    from HiveMind_presence import UPNPAnnounce
     presence = UPNPAnnounce(port=port, ssl=ssl,
                              service_type=service, name=name)
     presence.start()

@@ -1,6 +1,6 @@
 import click
 
-from hmcli.base import hmcli_cmds
+from .cmd_group import localhive_cmds
 @click.command(help='connect a directory containing skills to LocalHive')
 @click.argument("path")
 def load_skills_dir(path=None):
@@ -22,4 +22,4 @@ def load_skills_dir(path=None):
     for skill in skills:
         skill.handle_shutdown()
 
-hmcli_cmds.add_command(load_skills_dir)
+localhive_cmds.add_command(load_skills_dir)

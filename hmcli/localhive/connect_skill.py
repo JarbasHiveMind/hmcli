@@ -1,6 +1,6 @@
 import click
 
-from hmcli.base import hmcli_cmds
+from .cmd_group import localhive_cmds
 
 @click.command(help="connect a skill to LocalHive")
 @click.argument("path", required=True)
@@ -13,4 +13,4 @@ def connect_skill():
 
     skill.handle_shutdown()
 
-hmcli_cmds.add_command(connect_skill)
+localhive_cmds.add_command(connect_skill)

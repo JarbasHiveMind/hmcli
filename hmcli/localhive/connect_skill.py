@@ -2,7 +2,7 @@ import click
 
 from hmcli.src.commands import hmcli_cmds
 
-@click.command()
+@click.command(help="connect a skill to LocalHive")
 @click.argument("path", required=True)
 def connect_skill():
     from local_hive.loader import HiveMindExternalSkillWrapper

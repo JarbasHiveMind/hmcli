@@ -2,7 +2,7 @@ import click
 
 from hmcli.src.commands import hmcli_cmds
 
-@click.command()
+@click.command(help="remove a device")
 @click.argument("node_id", required=True)
 def delete_key(node_id):
     from jarbas_hive_mind.database import ClientDatabase

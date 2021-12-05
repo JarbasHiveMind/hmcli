@@ -3,7 +3,7 @@ import click
 
 from hmcli.src.commands import hmcli_cmds
 
-@click.command()
+@click.command(help="advertise this node's presence in the clear")
 @click.option("--ssl", help="use wss://", is_flag=True)
 @click.option("--port", help="HiveMind port number (default: 5678)", default=5678, required=False)
 @click.option("--name", default="HiveMind-Node", help="friendly device name (default: HiveMind-Node)")

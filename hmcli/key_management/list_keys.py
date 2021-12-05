@@ -4,7 +4,7 @@ from rich.table import Table
 
 from hmcli.src.commands import hmcli_cmds
 
-@click.command()
+@click.command(help="list devices and keys")
 def list_keys():
     from jarbas_hive_mind.database import ClientDatabase
     console = Console()

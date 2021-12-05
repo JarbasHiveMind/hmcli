@@ -333,12 +333,5 @@ if __name__ == "__main__":
                                   dev=args.dev,
                                   update=args.update)
     installer.install()
-    if args.enable:
-        installer.enable()
-    if args.disable:
-        installer.disable()
-    if args.start:
-        installer.start()
-    if args.stop:
-        installer.stop()
-
+    installer.enable()
+    # installer.disable()

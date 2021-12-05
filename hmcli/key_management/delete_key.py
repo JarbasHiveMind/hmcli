@@ -1,6 +1,6 @@
 import click
 
-from hmcli.src.commands import hmcli_cmds
+from hmcli.base import hmcli_cmds
 
 @click.command(help="remove a device")
 @click.argument("node_id", required=True)

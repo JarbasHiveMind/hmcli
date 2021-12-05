@@ -1,4 +1,4 @@
-from hmcli.src.commands import main
+from hmcli.base import main
 
 if __name__ == "__main__":
     main()

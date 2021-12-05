@@ -3,7 +3,7 @@ import os
 
 import click
 
-from hmcli.src.commands import hmcli_cmds
+from hmcli.base import hmcli_cmds
 
 @click.command(help="add a device and keys")
 @click.argument("name", required=False)

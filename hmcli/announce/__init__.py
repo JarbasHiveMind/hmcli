@@ -1,7 +1,7 @@
 import time
 import click
 
-from hmcli.src.commands import hmcli_cmds
+from hmcli.base import hmcli_cmds
 
 @click.command(help="advertise this node's presence in the clear")
 @click.option("--ssl", help="use wss://", is_flag=True)

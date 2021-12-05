@@ -1,10 +1,13 @@
+import click
+
 from rich.console import Console
 from rich.table import Table
 
-from HiveMind_presence import LocalDiscovery
+from hmcli.base import hmcli_cmds
 
-
+@click.command("scan", help="scan for Hives")
 def scan_and_print():
+    from HiveMind_presence import LocalDiscovery
     table = Table(title="HiveMind Devices")
 
     table.add_column("Name", justify="center")
@@ -19,6 +22,4 @@ def scan_and_print():
         table.add_row(device.friendly_name, proto, device.host, str(device.port))
         console.print(table)
 
-
-if __name__ == "__main__":
-    scan_and_print()
+hmcli_cmds.add_command(scan_and_print)

@@ -1,8 +1,8 @@
 import click
 
-from hmcli.base import hmcli_cmds
+from .cmd_group import server_cmds
 
-@click.command(help="remove a device")
+@click.command(help="remove a device", name="delete-device")
 @click.argument("node_id", required=True)
 def delete_key(node_id):
     from jarbas_hive_mind.database import ClientDatabase
@@ -20,4 +20,4 @@ def delete_key(node_id):
         else:
             print("Invalid Node ID!")
 
-hmcli_cmds.add_command(delete_key)
+server_cmds.add_command(delete_key)

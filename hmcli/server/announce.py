@@ -1,7 +1,7 @@
 import time
 import click
 
-from hmcli.base import hmcli_cmds
+from .cmd_group import server_cmds
 
 @click.command(help="advertise this node's presence in the clear")
 @click.option("--ssl", help="use wss://", is_flag=True)
@@ -20,4 +20,4 @@ def announce(port: int, ssl: bool, name: str, service: str):
             break
     presence.stop()
 
-hmcli_cmds.add_command(announce)
+server_cmds.add_command(announce)

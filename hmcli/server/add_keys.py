@@ -1,9 +1,8 @@
-import argparse
 import os
 
 import click
 
-from hmcli.base import hmcli_cmds
+from .cmd_group import server_cmds
 
 @click.command(help="add a device and keys")
 @click.argument("name", required=False)
@@ -38,4 +37,4 @@ def add_keys(name, access_key, crypto_key):
         print("Access Key:", access_key)
         print("Encryption Key:", key)
 
-hmcli_cmds.add_command(add_keys)
+server_cmds.add_command(add_keys, "add-device")

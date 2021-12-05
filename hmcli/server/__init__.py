@@ -1,1 +1,6 @@
-from . import add_keys, delete_key, list_keys, listen
+import click
+
+from . import \
+        add_keys, delete_key, list_keys,\
+        announce,\
+        listen

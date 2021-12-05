@@ -2,7 +2,7 @@ import click
 from rich.console import Console
 from rich.table import Table
 
-from hmcli.base import hmcli_cmds
+from .cmd_group import server_cmds
 
 @click.command(help="list devices and keys")
 def list_keys():
@@ -21,11 +21,4 @@ def list_keys():
 
     console.print(table)
 
-hmcli_cmds.add_command(list_keys)
-
-def main():
-    list_keys()
-
-
-if __name__ == '__main__':
-    main()
+server_cmds.add_command(list_keys)

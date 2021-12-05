@@ -1,6 +1,6 @@
 import click
 
-from hmcli.base import hmcli_cmds
+from .cmd_group import server_cmds
 
 @click.command(help="start listening for HiveMind connections")
 @click.option("--port", help="HiveMind port number", type=int, default=5678)
@@ -16,4 +16,4 @@ def listen():
         listener.port = args.port
     listener.listen()
 
-hmcli_cmds.add_command(listen)
+server_cmds.add_command(listen)

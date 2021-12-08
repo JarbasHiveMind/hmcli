@@ -167,59 +167,51 @@ class HiveMindInstaller:
 
     def enable_hivemind_core(self):
         installed = self.is_hivemind_installed()
-
+        unit = "HiveMind"
         if not installed:
             print("Could not enable HiveMind-core, it is not installed")
             return
 
         import jarbas_hive_mind
-        print("HiveMind-core installed")
-
-        autostart = not self.interactive or \
+        create = not self.interactive or \
                     input("Create systemd user unit file? y/n :").lower().startswith("y")
-        if autostart:
-            unit = "HiveMind"
+        if create:
             self.create_unit(jarbas_hive_mind.__file__.replace("__init__.py", "__main__.py"),
                              unit, "Listen for HiveMind connections")
-            os.system(f"systemctl --user enable {unit}")
-            os.system(f"systemctl --user start {unit}")
+        os.system(f"systemctl --user enable {unit}")
 
     def enable_hivemind_voice(self):
+        unit = "HiveMind_voice_satellite"
         installed = self.is_voicesat_installed()
         if not installed:
-            print("Could not enable HiveMind-voice-sat, it is not installed")
+            print(f"Could not enable {unit}, it is not installed")
             return
 
+        # create unit file
         import hivemind_voice_satellite
-        print("HiveMind-voice-sat installed")
-
-        autostart = not self.interactive or \
+        create = not self.interactive or \
                     input("Enable start on boot? y/n :").lower().startswith("y")
-        if autostart:
-            unit = "HiveMind_voice_satellite"
+        if create:
             self.create_unit(hivemind_voice_satellite.__file__.replace("__init__.py", "__main__.py"),
                              unit, "LocalHive Voice Service")
-            os.system(f"systemctl --user enable {unit}")
-            os.system(f"systemctl --user start {unit}")
+
+        # enable
+        os.system(f"systemctl --user enable {unit}")
 
     def enable_localhive(self):
+        unit = "LocalHive"
         installed = self.is_localhive_installed()
-
         if not installed:
-            print("Could not enable LocalHive, it is not installed")
+            print(f"Could not enable {unit}, it is not installed")
             return
 
         import local_hive
-        print("LocalHive installed")
-
-        autostart = not self.interactive or \
+        create = not self.interactive or \
                     input("Create systemd user unit file? y/n :").lower().startswith("y")
-        if autostart:
-            unit = "LocalHive"
+        if create:
             self.create_unit(local_hive.__file__.replace("__init__.py", "__main__.py"),
                              unit, "Load mycroft skills in isolation")
-            os.system(f"systemctl --user enable {unit}")
-            os.system(f"systemctl --user start {unit}")
+        os.system(f"systemctl --user enable {unit}")
 
     def disable_hivemind_core(self):
         installed = self.is_hivemind_installed()
@@ -227,7 +219,6 @@ class HiveMindInstaller:
             print("Could not disable HiveMind-core, it is not installed")
             return
         unit = "HiveMind"
-        os.system(f"systemctl --user stop {unit}")
         os.system(f"systemctl --user disable {unit}")
 
     def disable_hivemind_voice(self):
@@ -236,7 +227,6 @@ class HiveMindInstaller:
             print("Could not disable HiveMind-voice-sat, it is not installed")
             return
         unit = "HiveMind_voice_satellite"
-        os.system(f"systemctl --user stop {unit}")
         os.system(f"systemctl --user disable {unit}")
 
     def disable_localhive(self):
@@ -245,8 +235,59 @@ class HiveMindInstaller:
             print("Could not disable LocalHive, it is not installed")
             return
         unit = "LocalHive"
-        os.system(f"systemctl --user stop {unit}")
         os.system(f"systemctl --user disable {unit}")
+
+    def start_hivemind_core(self):
+        installed = self.is_hivemind_installed()
+
+        if not installed:
+            print("Could not start HiveMind-core, it is not installed")
+            return
+
+        unit = "HiveMind"
+        os.system(f"systemctl --user start {unit}")
+
+    def start_hivemind_voice(self):
+        installed = self.is_voicesat_installed()
+        if not installed:
+            print("Could not enable HiveMind-voice-sat, it is not installed")
+            return
+        unit = "HiveMind_voice_satellite"
+        os.system(f"systemctl --user start {unit}")
+
+    def start_localhive(self):
+        installed = self.is_localhive_installed()
+
+        if not installed:
+            print("Could not start LocalHive, it is not installed")
+            return
+
+        unit = "LocalHive"
+        os.system(f"systemctl --user start {unit}")
+
+    def stop_hivemind_core(self):
+        installed = self.is_hivemind_installed()
+        if not installed:
+            print("Could not stop HiveMind-core, it is not installed")
+            return
+        unit = "HiveMind"
+        os.system(f"systemctl --user stop {unit}")
+
+    def stop_hivemind_voice(self):
+        installed = self.is_voicesat_installed()
+        if not installed:
+            print("Could not stop HiveMind-voice-sat, it is not installed")
+            return
+        unit = "HiveMind_voice_satellite"
+        os.system(f"systemctl --user stop {unit}")
+
+    def stop_localhive(self):
+        installed = self.is_localhive_installed()
+        if not installed:
+            print("Could not stop LocalHive, it is not installed")
+            return
+        unit = "LocalHive"
+        os.system(f"systemctl --user stop {unit}")
 
     def install(self):
         self.install_hivemind_core()
@@ -264,11 +305,40 @@ class HiveMindInstaller:
         self.disable_localhive()
         self.disable_hivemind_voice()
 
+    def start(self):
+        self.start_hivemind_core()
+        self.start_localhive()
+        self.start_hivemind_voice()
+
+    def stop(self):
+        self.stop_localhive()
+        self.start_hivemind_core()
+        self.start_hivemind_voice()
+
 
 if __name__ == "__main__":
-    installer = HiveMindInstaller(interactive=False,
-                                  dev=True,
-                                  update=True)
+    import argparse
+    parser = argparse.ArgumentParser(description='Install HiveMind')
+    parser.add_argument("--no-prompt", help="Do not prompt user before actions", action='store_true')
+    parser.add_argument("--dev", help="install from github", action='store_true')
+    parser.add_argument("--update", help="update existing install", action='store_true')
+    parser.add_argument("--enable", help="enable HiveMind system services (launch on boot)", action='store_true')
+    parser.add_argument("--disable", help="disable HiveMind system services (launch on boot)", action='store_true')
+    parser.add_argument("--start", help="start HiveMind system services", action='store_true')
+    parser.add_argument("--stop", help="stop HiveMind system services", action='store_true')
+
+    args = parser.parse_args()
+
+    installer = HiveMindInstaller(interactive=not args.no_prompt,
+                                  dev=args.dev,
+                                  update=args.update)
     installer.install()
-    installer.enable()
-    # installer.disable()
+    if args.enable:
+        installer.enable()
+    if args.disable:
+        installer.disable()
+    if args.start:
+        installer.start()
+    if args.stop:
+        installer.stop()
+

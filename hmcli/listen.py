@@ -6,8 +6,10 @@ def main():
     import argparse
     parser = argparse.ArgumentParser(description='Start HiveMind websocket listener')
     parser.add_argument("--port", help="HiveMind port number", type=int)
+    parser.add_argument("--ssl", help="Listen with wss (default False)", action="store_true")
     args = parser.parse_args()
     config = CONFIGURATION
+    config["ssl"]["use_ssl"] = args.ssl
     listener = get_listener()
     listener.load_config(config)
     # Replace defined values

@@ -63,6 +63,18 @@ def disable_ssl():
     CONFIGURATION.store()
 
 
+@click.command("enable-self-signed", help="Allow self signed ssl certificates (vulnerable to MitM)")
+def enable_self_signed():
+    CONFIGURATION["ssl"]["self_signed"] = True
+    CONFIGURATION.store()
+
+
+@click.command("disable-self-signed", help="Refuse self signed ssl certificates")
+def disable_self_signed():
+    CONFIGURATION["ssl"]["self_signed"] = False
+    CONFIGURATION.store()
+
+
 @click.command("require-crypto", help="require AES encryption, connections will be refused if key is missing")
 def require_crypto():
     CONFIGURATION["crypto"]["required"] = True
@@ -101,6 +113,8 @@ config_cmds.add_command(set_cert_key)
 config_cmds.add_command(set_cert)
 config_cmds.add_command(enable_ssl)
 config_cmds.add_command(disable_ssl)
+config_cmds.add_command(enable_self_signed)
+config_cmds.add_command(disable_self_signed)
 config_cmds.add_command(require_crypto)
 config_cmds.add_command(optional_crypto)
 config_cmds.add_command(enable_handshakes)

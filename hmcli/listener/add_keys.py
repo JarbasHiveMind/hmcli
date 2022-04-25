@@ -2,14 +2,14 @@ import os
 
 import click
 
-from .cmd_group import server_cmds
+from .cmd_group import listener_cmds
+
 
 @click.command(help="add a device and keys")
 @click.argument("name", required=False)
 @click.argument("access_key", required=False)
 @click.argument("crypto_key", required=False)
 def add_keys(name, access_key, crypto_key):
-
     from jarbas_hive_mind.database import ClientDatabase
 
     key = crypto_key
@@ -37,4 +37,5 @@ def add_keys(name, access_key, crypto_key):
         print("Access Key:", access_key)
         print("Encryption Key:", key)
 
-server_cmds.add_command(add_keys, "add-device")
+
+listener_cmds.add_command(add_keys, "add-device")

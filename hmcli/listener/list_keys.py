@@ -2,9 +2,10 @@ import click
 from rich.console import Console
 from rich.table import Table
 
-from .cmd_group import server_cmds
+from .cmd_group import listener_cmds
 
-@click.command(help="list devices and keys")
+
+@click.command(help="list devices and keys", name="list-keys")
 def list_keys():
     from jarbas_hive_mind.database import ClientDatabase
     console = Console()
@@ -21,4 +22,5 @@ def list_keys():
 
     console.print(table)
 
-server_cmds.add_command(list_keys)
+
+listener_cmds.add_command(list_keys)

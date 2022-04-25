@@ -1,6 +1,7 @@
 import click
 
-from .cmd_group import server_cmds
+from .cmd_group import listener_cmds
+
 
 @click.command(help="remove a device", name="delete-device")
 @click.argument("node_id", required=True)
@@ -20,4 +21,5 @@ def delete_key(node_id):
         else:
             print("Invalid Node ID!")
 
-server_cmds.add_command(delete_key)
+
+listener_cmds.add_command(delete_key)

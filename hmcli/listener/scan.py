@@ -1,9 +1,10 @@
 import click
-
 from rich.console import Console
 from rich.table import Table
 
-from hmcli.base import hmcli_cmds
+from .cmd_group import listener_cmds
+
+
 
 @click.command("scan", help="scan for Hives")
 def scan_and_print():
@@ -22,4 +23,5 @@ def scan_and_print():
         table.add_row(device.friendly_name, proto, device.host, str(device.port))
         console.print(table)
 
-hmcli_cmds.add_command(scan_and_print)
+
+listener_cmds.add_command(scan_and_print)

@@ -5,8 +5,7 @@ from rich.table import Table
 from .cmd_group import listener_cmds
 
 
-
-@click.command("scan", help="scan for Hives")
+@click.command("scan", help="scan for Nodes")
 def scan_and_print():
     from HiveMind_presence import LocalDiscovery
     table = Table(title="HiveMind Devices")

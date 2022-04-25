@@ -10,9 +10,11 @@ Options:
   --help  Show this message and exit.
 
 Commands:
-  local   LocalHive controls
-  listener  HiveMind server controls
-  setup   HiveMind service configuration - Valid options: 'all', 'ovos',...
+  config    HiveMind config helper
+  listener  HiveMind listener controls
+  local     LocalHive controls
+  server    HiveMind server controls
+  setup     HiveMind service configuration - Valid options: 'all', 'ovos',...
 ```
 
 ### Setup
@@ -36,24 +38,38 @@ Commands:
   stop     stop named service for hivemind
 
 ```
+NOTES:
+- install uses pip and installs from github
+- enable creates user systemd services
+- ovos-core is installed, not mycroft
 
-### LocalHive
+### Config
 
 ```bash
-$ hmcli local --help
+$ hmcli config --help
 
-Usage: hmcli local [OPTIONS] COMMAND [ARGS]...
+Usage: hmcli config [OPTIONS] COMMAND [ARGS]...
 
-  LocalHive controls
+  HiveMind config helper
 
 Options:
   --help  Show this message and exit.
 
 Commands:
-  connect-skill    connect a skill to LocalHive
-  load-skills-dir  connect a directory containing skills to LocalHive
-
+  disable-handshake  Disable automatic crypto key negotiation
+  disable-ssl        Disable wss:// (insecure)
+  enable-handshake   Enable automatic crypto key negotiation
+  enable-ssl         Enable wss:// (secure)
+  optional-crypto    optional AES encryption, default to plain text messages
+  print              print json config
+  require-crypto     require AES encryption, connections will be refused if...
+  set-cert-file      set filename for ssl certificate, default HiveMind.crt
+  set-cert-key       set filename for ssl certificate, default HiveMind.key
+  set-cert-path      set path to look for ssl certificates
+  set-loop           set event loop backend
+  set-port           set hivemind listener port
 ```
+NOTE: some of these settings are still open PRs in upstream
 
 ### Listener
 
@@ -88,9 +104,6 @@ Scanning....
 └───────┴──────────┴───────────────┴──────┘
 ```
 
-
-## Credentials Management
-
 ```     
 $ hmcli listener add-device Mark1
 Credentials added to database!
@@ -121,3 +134,21 @@ Access Key: 41c544ecd8f939c2b7125858ce903a08
 Encryption Key: 57f89a205d4d7685
 ```
 
+
+### LocalHive
+
+```bash
+$ hmcli local --help
+
+Usage: hmcli local [OPTIONS] COMMAND [ARGS]...
+
+  LocalHive controls
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  connect-skill    connect a skill to LocalHive
+  load-skills-dir  connect a directory containing skills to LocalHive
+
+```

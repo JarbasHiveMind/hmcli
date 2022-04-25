@@ -1,25 +1,84 @@
 
-## Local Network 
+## Usage
 
-```
-$ python hmcli/announce.py --name Mark1 --ssl
-Announcing node via Zeroconf
-Announcing node via UPNP: http://192.168.1.112:8088/device.xml
+```bash
+$ hmcli --help
 
-$ python hmcli/announce.py --help
-usage: announce.py [-h] [--port PORT] [--ssl] [--name NAME] [--service SERVICE]
+Usage: hmcli [OPTIONS] COMMAND [ARGS]...
 
-optional arguments:
-  -h, --help         show this help message and exit
-  --port PORT        HiveMind port number (default: 5678)
-  --ssl              use wss://
-  --name NAME        friendly device name (default: HiveMind-Node)
-  --service SERVICE  HiveMind service type (default: HiveMind-websocket)
+Options:
+  --help  Show this message and exit.
 
+Commands:
+  local   LocalHive controls
+  listener  HiveMind server controls
+  setup   HiveMind service configuration - Valid options: 'all', 'ovos',...
 ```
 
+### Setup
+
+```bash
+$ hmcli setup --help
+
+Usage: hmcli setup [OPTIONS] COMMAND [ARGS]...
+
+  HiveMind service configuration  -  Valid options: 'all', 'ovos', 'master', 'local', 'voice', 'cli', 'announce'
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  disable  disable named service for hivemind
+  enable   enable named service for hivemind
+  install  install named service for hivemind
+  restart  restart named service for hivemind
+  start    start named service for hivemind
+  stop     stop named service for hivemind
+
 ```
-$ python hmcli/scan.py
+
+### LocalHive
+
+```bash
+$ hmcli local --help
+
+Usage: hmcli local [OPTIONS] COMMAND [ARGS]...
+
+  LocalHive controls
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  connect-skill    connect a skill to LocalHive
+  load-skills-dir  connect a directory containing skills to LocalHive
+
+```
+
+### Listener
+
+```bash
+$ hmcli listener --help
+
+Usage: hmcli listener [OPTIONS] COMMAND [ARGS]...
+
+  HiveMind listener controls
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  add-device     add a device and keys
+  announce       advertise this node's presence in the local network
+  delete-device  remove a device
+  list-keys      list devices and keys
+  listen         start listening for HiveMind connections
+  scan           scan for Hives
+
+```
+
+```
+$ hmcli listener scan
 Scanning....
                  HiveMind Devices                  
 ┏━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━┳━━━━━━┓
@@ -33,7 +92,7 @@ Scanning....
 ## Credentials Management
 
 ```     
-$ python hmcli/add_keys.py --name Mark1
+$ hmcli listener add-device Mark1
 Credentials added to database!
 
 Node ID: 6
@@ -43,7 +102,7 @@ Encryption Key: ab8363672d6e7e89
 ```
 
 ```
-$ python hmcli/list_keys.py
+$ hmcli listener list-keys
                       HiveMind Credentials:                       
 ┏━━━━┳━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓
 ┃ ID ┃ Name  ┃            Access Key            ┃    Crypto Key    ┃
@@ -53,7 +112,7 @@ $ python hmcli/list_keys.py
 ```
 
 ```
-$ python hmcli/delete_key.py --node_id 8
+$ hmcli listener delete-device 8
 Revoked credentials!
 
 Node ID: 8

@@ -1,16 +1,15 @@
-import argparse
+import click
 
-from jarbas_hive_mind.database import ClientDatabase
+from .cmd_group import listener_cmds
 
 
-def main():
-    parser = argparse.ArgumentParser(description="Delete node from HiveMind's database")
-    parser.add_argument("--node_id", help="id of node to delete")
-    args = parser.parse_args()
-
+@click.command(help="remove a device", name="delete-device")
+@click.argument("node_id", required=True)
+def delete_key(node_id):
+    from jarbas_hive_mind.database import ClientDatabase
     with ClientDatabase() as db:
         for x in db:
-            if x["client_id"] == int(args.node_id):
+            if x["client_id"] == int(node_id):
                 item_id = db.get_item_id(x)
                 db.update_item(item_id, dict(client_id=-1, api_key="revoked"))
                 print(f"Revoked credentials!\n")
@@ -23,5 +22,4 @@ def main():
             print("Invalid Node ID!")
 
 
-if __name__ == '__main__':
-    main()
+listener_cmds.add_command(delete_key)

@@ -1,10 +1,13 @@
+import click
 from rich.console import Console
 from rich.table import Table
 
-from HiveMind_presence import LocalDiscovery
+from .cmd_group import listener_cmds
 
 
+@click.command("scan", help="scan for Nodes")
 def scan_and_print():
+    from HiveMind_presence import LocalDiscovery
     table = Table(title="HiveMind Devices")
 
     table.add_column("Name", justify="center")
@@ -20,5 +23,4 @@ def scan_and_print():
         console.print(table)
 
 
-if __name__ == "__main__":
-    scan_and_print()
+listener_cmds.add_command(scan_and_print)

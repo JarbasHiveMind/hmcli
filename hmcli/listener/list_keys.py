@@ -1,10 +1,13 @@
+import click
 from rich.console import Console
 from rich.table import Table
 
-from jarbas_hive_mind.database import ClientDatabase
+from .cmd_group import listener_cmds
 
 
-def list_db():
+@click.command(help="list devices and keys", name="list-keys")
+def list_keys():
+    from jarbas_hive_mind.database import ClientDatabase
     console = Console()
     table = Table(title="HiveMind Credentials:")
     table.add_column("ID", justify="center")
@@ -20,9 +23,4 @@ def list_db():
     console.print(table)
 
 
-def main():
-    list_db()
-
-
-if __name__ == '__main__':
-    main()
+listener_cmds.add_command(list_keys)

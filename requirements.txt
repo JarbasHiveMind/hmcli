@@ -1,2 +1,4 @@
 jarbas_hive_mind
+click
+click_default_group
 rich

@@ -1,17 +1,18 @@
-import argparse
 import os
 
-from jarbas_hive_mind.database import ClientDatabase
+import click
+
+from .cmd_group import listener_cmds
 
 
-def main():
-    parser = argparse.ArgumentParser(description="Add node to HiveMind's database")
-    parser.add_argument("--name", help="human readable name")
-    parser.add_argument("--access_key", help="access key")
-    parser.add_argument("--crypto_key", help="payload encryption key")
-    args = parser.parse_args()
+@click.command(help="add a device and keys")
+@click.argument("name", required=False)
+@click.argument("access_key", required=False)
+@click.argument("crypto_key", required=False)
+def add_keys(name, access_key, crypto_key):
+    from jarbas_hive_mind.database import ClientDatabase
 
-    key = args.crypto_key
+    key = crypto_key
     if key:
         print("WARNING: for security the encryption key should be randomly generated\n"
               "Defining your own key is discouraged")
@@ -21,9 +22,9 @@ def main():
     else:
         key = os.urandom(8).hex()
 
-    access_key = args.access_key or os.urandom(16).hex()
+    access_key = access_key or os.urandom(16).hex()
     with ClientDatabase() as db:
-        name = args.name or f"HiveMind-Node-{db.total_clients()}"
+        name = name or f"HiveMind-Node-{db.total_clients()}"
         db.add_client(name, access_key, crypto_key=key)
 
         # verify
@@ -37,5 +38,4 @@ def main():
         print("Encryption Key:", key)
 
 
-if __name__ == '__main__':
-    main()
+listener_cmds.add_command(add_keys, "add-device")

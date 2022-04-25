@@ -3,11 +3,12 @@ from os.path import isdir
 from pprint import pprint
 
 import click
-from json_database import JsonStorageXDG
+from json_database import JsonConfigXDG
 
 from .cmd_group import config_cmds
 
-CONFIGURATION = JsonStorageXDG("HivemindCore")
+BASE_FOLDER = "jarbasHiveMind"
+CONFIGURATION = JsonConfigXDG("hivemind", subfolder=BASE_FOLDER, extension="conf")
 
 
 @click.command("set-loop", help="set event loop backend (asyncio vs twisted)")
